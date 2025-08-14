@@ -10,14 +10,14 @@ a) Jugar al CS (o cualquier 3D Shoteer).
 b) Explorar los oceanos.
 
   Medida de desempeño: superficie explorada, costo de la exploracion.
-  Entorno: oceano, flora y fauna.
-  Actuadores: movimiento del explorador, zoom, posibles brazos roboticos.
+  Entorno: oceano, flora y fauna. 
+  Actuadores: movimiento del explorador, zoom, posibles brazos roboticos. 
   Sensores: controles de exploracion, detectores de movimiento
   
   El entorno es parcialmente observable, mayormenta deterministico, puede ser multi-agente o no, desconocido, dinamico, continuo y secuencial
 
 c) Comprar y vender tokens crypto (alguno).
-
+  
   Medida de desempeño: Ganancias totales, maximizar inversion.
   Entorno: Mercados, precios, demas compradores, restricciones.
   Actuadores: Ordenes de compra y venta, modificacion de las mismas.
