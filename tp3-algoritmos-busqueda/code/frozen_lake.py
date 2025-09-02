@@ -6,13 +6,18 @@ from gymnasium import wrappers
 import random_search
 import argparse
 import bfs
+import dfs
+import uniform_cost
+import dfs_limit
+import a_star1
+import a_star2
+
 
 
 def generate_random_map_custom(
     size: int = 8, p: float = 0.8, seed: int | None = None
 ) -> list[str]:
     
-    valid = False
     board = []  # initialize to make pyright happy
 
     np_random, _ = seeding.np_random(seed)
@@ -47,8 +52,14 @@ if __name__ == "__main__":
 
     # Ejecutar algoritmo de busqueda
     # random_search.random_search(env, seedd)
-    bfs.executeBFS(env,seedd)
-    
+    # bfs.executeBFS(env,seedd)
+    # dfs.executeDFS(env, seedd)
+    # dfs_limit.executeDFS_limit(env,seedd,100)
+    # uniform_cost.executeUniformCost(env,seedd)
+    # a_star1.executeA_star(env, seedd)
+    a_star2.executeA_star(env, seedd)
+
+
 
 
 
