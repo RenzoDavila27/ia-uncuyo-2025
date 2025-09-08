@@ -48,6 +48,10 @@ Porcentaje de Éxito en DFS con Límite
 
 Este gráfico muestra cómo el porcentaje de éxito mejora al aumentar el límite de profundidad en DFS Limitado. A mayor profundidad, mayor cobertura del espacio de búsqueda, lo que incrementa la probabilidad de encontrar una solución. Sin embargo, esto también puede aumentar el tiempo de ejecución y el consumo de recursos.
 
+Algoritmo A*
+
+Para este algoritmo se definio una heuristica para calcular la distancia entre el punto inicial y final, en este caso esta dada por la distancia euclidiana de un punto A a un punto B. Esto se puede ver en el codigo en la funcion llamada h().
+
 Conclusión
 
 El algoritmo A* demuestra ser el más eficiente en términos de estados explorados, costo y tiempo. BFS ofrece soluciones completas pero con un mayor porcentaje de estados explorados. DFS y Random presentan limitaciones significativas. El ajuste del límite en DFS Limitado puede mejorar su rendimiento, pero no lo convierte en una solución óptima.
