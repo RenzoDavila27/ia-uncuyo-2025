@@ -1,7 +1,6 @@
 Gráfico 1 – Porcentaje promedio limpiado según el tamaño
 
-![Texto alternativo](
-https://raw.githubusercontent.com/RenzoDavila27/ia-uncuyo-2025/refs/heads/main/tp2-agentes-racionales/images/grafico1.png)
+![Texto alternativo](images/grafico1.png)
 
 Este gráfico compara el rendimiento de los agentes reflexivo y random a medida que aumenta el tamaño del entorno (desde 2x2 hasta 128x128).
 
@@ -23,7 +22,7 @@ En conclusion el agente reflexivo escala mejor que el random, aunque ninguno de 
 
 Gráfico 2 – Porcentaje limpiado según la cantidad de suciedad (16x16)
 
-![Texto alternativo](https://raw.githubusercontent.com/RenzoDavila27/ia-uncuyo-2025/refs/heads/main/tp2-agentes-racionales/images/grafico2.png)
+![Texto alternativo](images/dirt_rate16x16.png)
 
 Este gráfico muestra la influencia del dirt rate (0.1 a 0.8) en el porcentaje de limpieza para ambos agentes, en un entorno fijo de 16x16.
 
@@ -35,4 +34,4 @@ En conclusion el reflexivo es mucho más eficiente, independientemente de la can
 
 Esta estructura, donde los agentes siempre obtienen un porcentaje de limpieza equivalente a la cantidad de suciedad, se mantiene en todos los graficos mayores a 8x8, mientras que en los entornos mas pequeños, ambos agentes limpian la totalidad del espacio, debido a la cantidad de acciones disponible.
 
-Se decidio incluir unicamente el 16x16 ya que es un caso intermedio, en donde se puede ver de mejor forma la diferencia de la limpieza entre agentes. En los graficos de entornos mas grandes, se vera la misma estructura, pero el porcentaje de limpieza de cada agente va a disminuir de forma equivalente.
+Se decidio incluir unicamente el 16x16 ya que es un caso intermedio, en donde se puede ver de mejor forma la diferencia de la limpieza entre agentes. En los graficos de entornos mas grandes, se vera la misma estructura, pero el porcentaje de limpieza de cada agente va a disminuir de forma equivalente. Igualmente en la carpeta images se incluyen los demas graficos
