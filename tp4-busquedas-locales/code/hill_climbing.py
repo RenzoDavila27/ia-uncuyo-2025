@@ -59,7 +59,7 @@ def hill_climbing(board, states, limit):
 
     return (best_board, best_value, states)
 
-def execute_HB(board, limit):
+def execute_HC(board, limit):
 
     states = 0
     best_board = board
@@ -76,4 +76,4 @@ def execute_HB(board, limit):
 
         last_board = best_board.copy()
 
-    return (best_board, best_value, states,time.time() - start)
+    return ("HC",best_board, best_value, states,time.time() - start)
