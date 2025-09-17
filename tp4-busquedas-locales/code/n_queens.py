@@ -2,6 +2,7 @@ import hill_climbing
 import random
 import argparse
 import simulate_annealing
+import genetic
 
 def random_board(n):
     return [random.randint(0, n-1) for _ in range(n)]
@@ -19,10 +20,11 @@ if __name__ == "__main__":
     size = args.size
 
 
-    limit = 500
+    limit = 1000
     random.seed(seed)
     board = random_board(size)
     #result = hill_climbing.execute_HC(board,limit)
-    result = simulate_annealing.execute_SA(board,limit,seed)
+    #result = simulate_annealing.execute_SA(board,limit,seed)
+    result = genetic.execute_GA(board,limit,seed)
     name, best_board, best_value, states, time = result
     print(f"{name}, {seed}, {size}, {best_board}, {best_value}, {states}, {time}")
