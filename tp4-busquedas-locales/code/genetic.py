@@ -32,19 +32,13 @@ def h(board):
 
     return threateneds
 
-def tournament_selection(population_values):
+def tournament_selection(population, fitness_map):
     tournament_size = 3
-    candidates = random.sample(sorted(population_values.keys()), tournament_size)
+    candidates = random.sample(population, tournament_size)
 
-    min = float("inf")
+    best_candidate = min(candidates, key=lambda candidate: fitness_map[tuple(candidate)])
 
-    for candidate in candidates:
-        value = population_values[candidate]
-        if value < min:
-            min = value
-            best_candidate = candidate
-            
-    return list(best_candidate)
+    return best_candidate.copy()
 
 def mutation(candidate):
     
@@ -100,50 +94,57 @@ def execute_GA(board, limit, seed):
     population = []
     population_values = {}
 
+    def evaluate(candidate):
+        nonlocal states
+        states += 1
+        return h(candidate)
+
     for _ in range(population_size):
         individual = list(random.sample(range(size), size))
+        fitness = evaluate(individual)
         population.append(individual)
-        population_values[tuple(individual)] = h(individual)
-        states += 1
+        population_values[tuple(individual)] = fitness
 
-    best_board = min(population, key=lambda ind: h(ind))
-    best_value = h(best_board)
+    best_board = min(population, key=lambda ind: population_values[tuple(ind)])
+    best_value = population_values[tuple(best_board)]
+    best_board = best_board.copy()
 
     start = time.time()
     while states < limit and best_value > 0:
 
         new_population = []
+        new_population_values = {}
 
         while len(new_population) < population_size:
-            parent1 = tournament_selection(population_values)
-            parent2 = tournament_selection(population_values)
+            parent1 = tournament_selection(population, population_values)
+            parent2 = tournament_selection(population, population_values)
 
             if random.random() < cross_rate:
                 offspring1, offspring2 = PMX(parent1, parent2)
-                states += 2
             else:
-                offspring1, offspring2 = parent1, parent2
+                offspring1, offspring2 = parent1.copy(), parent2.copy()
 
             if random.random() < mutation_rate:
                 offspring1 = mutation(offspring1)
-                states += 1
             if random.random() < mutation_rate:
                 offspring2 = mutation(offspring2)
-                states += 1
 
             new_population.append(offspring1)
             new_population.append(offspring2)
 
-            population_values[tuple(offspring1)] = h(offspring1)
-            population_values[tuple(offspring2)] = h(offspring2)
+            new_population_values[tuple(offspring1)] = evaluate(offspring1)
+            new_population_values[tuple(offspring2)] = evaluate(offspring2)
 
         population = new_population[:population_size]
+        population_values = {
+            tuple(ind): new_population_values[tuple(ind)] for ind in population
+        }
 
-        current_best = min(population, key=lambda ind: h(ind))
-        current_best_value = h(current_best)
+        current_best = min(population, key=lambda ind: population_values[tuple(ind)])
+        current_best_value = population_values[tuple(current_best)]
 
         if current_best_value < best_value:
-            best_board = current_best
+            best_board = current_best.copy()
             best_value = current_best_value
 
     end = time.time()
