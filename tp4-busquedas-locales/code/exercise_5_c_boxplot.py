@@ -25,7 +25,7 @@ def parse_args() -> argparse.Namespace:
         "input",
         type=Path,
         nargs="?",
-        default=Path("results.csv"),
+        default=Path("results_5_a.csv"),
         help="CSV con los resultados crudos (por defecto results.csv).",
     )
     parser.add_argument(

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Archivo de salida
-OUTPUT="results.csv"
+OUTPUT="results_5_a.csv"
 
 # Lista de semillas
 seeds=(

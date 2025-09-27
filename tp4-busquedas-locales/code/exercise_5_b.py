@@ -21,7 +21,7 @@ def parse_args() -> argparse.Namespace:
         "input",
         type=Path,
         nargs="?",
-        default=Path("results.csv"),
+        default=Path("results_5_a.csv"),
         help="Path to the input CSV produced by the experiments.",
     )
     parser.add_argument(
