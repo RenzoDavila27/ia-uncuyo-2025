@@ -296,7 +296,7 @@ board = [random.randint(0,10) for i in range(0,10)]
 #execute_HC(board, limit)
 #execute_SA(board, limit, seed)
 #execute_GA(board, limit, seed)
-#random_algorithm(board, limit, seed)
+random_algorithm(board, limit, seed)
 
 print(f)
 
@@ -308,7 +308,7 @@ y = list(f.values())
 plt.plot(x, y, marker="o", linestyle="-", color="b", label="h(x)", markersize=0)
 
 # Personalizar gráfico
-plt.title(f"Gráfico de la función H(x) en Hill Climbing de tamaño 10,\n con seed={seed} y límite={limit}")
+plt.title(f"Gráfico de la función H(x) en el Algoritmo Random de tamaño 10,\n con seed={seed} y límite={limit}")
 plt.xlabel("Iteracion")
 plt.ylabel("H(board)")
 plt.grid(True)

@@ -1,6 +1,25 @@
-Reporte para el Trabajo Practico Nro 4: Busquedas locales
+## Reporte para el Trabajo Practico Nro 4: Busquedas locales
 
 En este reporte se hablara sobre los 4 algoritmos puestos a prueba en el problema de las N-Reinas.
+
+## Parametros
+
+Se usaron parametros para todos los algoritmos, como el limite de estados explorados el cual fue 1000.
+
+Para Simulated Annealing se uso una funcion de schedule geometrica, en donde t es el numero de iteracion:
+
+```
+def schedule(t):
+    return 100 * (0.97 ** t)
+```
+
+El algoritmo terminara cuando el retorno de esta funcion sea menor a 10⁽⁻¹⁰⁾.
+
+Yendo al algoritmo genetico, este empieza con una seleccion de 100 individuos de forma aleatoria (sin permutaciones), que es igual al tamaño de la poblacion. Luego se seleccionaran 3 individuos para hacer un torneo, el cual ganara el que menor pares de reina amenazadas tenga. Luego con un 80% de posibilidad, se realizara una permutacion (PMX) con los padres. Luego con un 10% de posibilidad, se realiza una mutacion. Finalmente se obtienen dos individuos los cuales seran almacenados en una nueva poblacion. Estos 4 pasos se repetiran hasta que la nueva poblacion sea de tamaño 100.
+
+Finalmente se guarda el mejor valor de la generacion y se realiza todo el procedimiento otra vez con la nueva generacion. En este caso se realizaran un total de 10 generaciones.
+
+El criterio de terminacion es haber encontrado la mejor solucion o llegar al numero maximo de estados explorados.
 
 ## Llegada a una solución óptima
 La serie de capturas de éxito permite observar cómo evoluciona la probabilidad de alcanzar una solución óptima a medida que aumenta el tamaño del tablero en el problema de las N-Reinas. Para tableros pequeños (4x4) casi todos los algoritmos convergen rápidamente, mientras que en tamaños intermedios (8x8 y 10x10) aparecen ejecuciones fallidas producidas por mesetas o máximos locales. En el caso de 12 y 15 reinas, el impacto de la dimensionalidad se hace evidente: los métodos deterministas requieren reinicios y los estocásticos dependen del ajuste de los parámetros de exploración. Las imágenes permiten comparar visualmente estas diferencias y refuerzan la necesidad de estrategias híbridas o de reinicio cuando el espacio de búsqueda se expande.
