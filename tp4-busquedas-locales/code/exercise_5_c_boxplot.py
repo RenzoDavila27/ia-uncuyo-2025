@@ -167,7 +167,7 @@ def plot_boxplots(
 
     fig.suptitle(f"Distribución por algoritmo - Tablero {board_size}")
     output_dir.mkdir(parents=True, exist_ok=True)
-    output_path = output_dir / f"exercise_5_c_size_{board_size}.png"
+    output_path = output_dir / f"boxplots_size_{board_size}.png"
     fig.savefig(output_path, dpi=200)
     plt.close(fig)
 

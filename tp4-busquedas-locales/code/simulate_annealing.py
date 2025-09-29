@@ -55,21 +55,22 @@ def execute_SA(board, limit, seed):
 
     states = 0
     current_board = board
+    current_value = h(board)
     next_board = []
 
     random.seed(seed)
 
     start = time.time()
     t = 0
-    while states < limit:
+    while states < limit and current_value != 0:
         t_high = schedule(states)
         if round(t_high,10) == 0:
             break
         
         neighbor = pick_neighbor(current_board)
         states += 1
-
-        delta_e = h(neighbor) - h(current_board)
+        current_value = h(current_board)
+        delta_e = h(neighbor) - current_value
 
         if delta_e < 0:
             current_board = neighbor
@@ -82,6 +83,6 @@ def execute_SA(board, limit, seed):
             if random.random() < prob:
                 current_board = neighbor
 
-    return ("SA",current_board, h(current_board), states,time.time() - start)
+    return ("SA",current_board, current_value, states,time.time() - start)
 
     
