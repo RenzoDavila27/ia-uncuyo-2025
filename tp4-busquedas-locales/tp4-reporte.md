@@ -26,6 +26,7 @@ La serie de capturas de éxito permite observar cómo evoluciona la probabilidad
 
 ![Éxito en tablero 4x4](images/success_size_4.png)
 ![Éxito en tablero 8x8](images/success_size_8.png)
+![Éxito en tablero 10x10](images/success_size_10.png)
 ![Éxito en tablero 12x12](images/success_size_12.png)
 ![Éxito en tablero 15x15](images/success_size_15.png)
 
@@ -36,6 +37,7 @@ Los boxplots complementan el análisis mostrando la dispersión en tiempo, costo
 ![Boxplot tablero 8x8](images/boxplots_size_8.png)
 ![Boxplot tablero 10x10](images/boxplots_size_10.png)
 ![Boxplot tablero 12x12](images/boxplots_size_12.png)
+![Boxplot tablero 12x12](images/boxplots_size_15.png)
 
 ## Evolución de las funciones de fitness
 Las curvas hx registran la evolución del valor de la función objetivo a lo largo de las iteraciones para cada enfoque. La búsqueda aleatoria exhibe descensos abruptos seguidos de mesetas prolongadas, mientras que el Hill Climbing con reinicios mantiene un progreso escalonado hasta estabilizarse. Simulated Annealing muestra oscilaciones controladas que reflejan su capacidad de aceptar peores movimientos al inicio, facilitando la exploración. Finalmente, el algoritmo genético combina exploración y explotación: la diversidad inicial genera variaciones pronunciadas y luego la población converge gradualmente hacia configuraciones competitivas. Comparar estas curvas permite ajustar parámetros como temperatura, tasa de mutación o criterios de reinicio para balancear exploración y convergencia.
