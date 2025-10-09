@@ -1,8 +1,12 @@
 import argparse
+import csv
+import json
 import math
 import random
+import sys
 
 import backtracking
+import forward
 
 
 def initialize_board(size, seed, fixed_ratio=0.2):
@@ -10,7 +14,7 @@ def initialize_board(size, seed, fixed_ratio=0.2):
 
     board = [list(range(size)) for _ in range(size)]
     if size <= 0:
-        return board, {}
+        return board, {}, []
 
     num_fixed = max(1, math.ceil(size * fixed_ratio))
     num_fixed = min(num_fixed, size)
@@ -63,6 +67,10 @@ def initialize_board(size, seed, fixed_ratio=0.2):
     return board, assignment, normalize_board()
 
 
+def format_board(board):
+    return "[" + ", ".join("?" if cell == "?" else str(cell) for cell in board) + "]"
+
+
 parser = argparse.ArgumentParser(description="N-Queens Problem Solver")
 parser.add_argument("-size",required=True, type=int, help="Size of the chessboard (N x N)")
 parser.add_argument("-seed",required=True, type=int, help="Random seed for reproducibility")
@@ -72,6 +80,16 @@ size = args.size
 seed = args.seed
 board, fixed_assignment, board_to_show = initialize_board(size, seed)
 
-name, board, duration, states = backtracking.run(board, seed, fixed_assignment)
+#name, board, duration, states = backtracking.run(board, seed, fixed_assignment)
+name, board, duration, states = forward.run(board, seed, fixed_assignment)
 
-print(f"{name}, {seed}, {size},{board_to_show}, {board},{duration}, {states}")
+writer = csv.writer(sys.stdout)
+writer.writerow([
+    name,
+    seed,
+    size,
+    format_board(board_to_show),
+    json.dumps(board),
+    duration,
+    states,
+])
