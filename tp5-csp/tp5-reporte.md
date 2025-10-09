@@ -101,6 +101,13 @@ En tableros pequeños como N=4, el backtracking puro suele ser ligeramente más 
 
 Forward checking visita muchas menos configuraciones parciales: la propagación anticipada podando dominios evita expandir ramas inconsistentes, de modo que el árbol de búsqueda es considerablemente menos frondoso. En contraste, el backtracking debe recorrer la mayor parte del árbol antes de encontrar una asignación válida, lo que provoca un incremento drástico en estados explorados y, por ende, en tiempo de ejecución a medida que crece N.
 
+### Comparación con los algoritmos del TP4
+
+En el trabajo práctico anterior se analizaron cuatro enfoques de búsqueda local sobre N-Reinas (Hill Climbing, Simulated Annealing, Algoritmo Genético y búsqueda aleatoria). Aquellos métodos operan sobre configuraciones completas: generan vecinos, aceptan o rechazan movimientos según una función heurística y dependen de parámetros como temperatura, tasa de mutación para no atascarse en mesetas. Las gráficas de éxito y boxplots del TP4 mostraban que, a medida que el tablero crecía, la variabilidad se disparaba y el éxito dejaba de estar garantizado salvo para Simulated Annealing, que aun así requería tiempos mayores y calibración cuidadosa en N grandes.
+
+El enfoque de CSP implementado en este TP5 introduce un contraste interesante. Backtracking puro mantiene la completitud pero escala peor que las mejores búsquedas locales, cayendo en tiempos impracticables para N ≥ 12. Sin embargo, la versión con forward checking y heurísticas MRV/LCV combina la garantía de encontrar solución con un rendimiento muy cercano (y en varios casos superior) al de los algoritmos estocásticos del TP4. Las métricas agregadas (`tp5-csp/code/data_obtained.csv`) reflejan tasas de éxito del 100 % y dispersiones bajas para forward checking, mientras que en TP4 todavía se observaban ejecuciones fallidas o muy lentas en tamaños 12 y 15.
+
+En síntesis, los experimentos del TP4 demostraron que las búsquedas locales bien parametrizadas son una alternativa rápida cuando se tolera cierta probabilidad de fallo. Los resultados del TP5 confirman que, si añadimos poda agresiva y buenas heurísticas a la formulación como CSP, es posible obtener la robustez de un algoritmo completo sin renunciar a tiempos competitivos. Esta comparación enfatiza la importancia de combinar ideas: la preasignación aleatoria pero consistente, el desempate heurístico y la propagación anticipada acercan el comportamiento del forward checking al de los mejores métodos locales, mientras que conservan la seguridad de hallar una solución cuando existe.
 
 
 
