@@ -69,6 +69,37 @@ Luego para cada arista (Xi → Xj) se analiza la consistencia, este procedimient
 
 Finalmente se obtiene una complejidad de **O((n-1)d³)**.
 
+### Estrategias de resolución para N-Reinas
+
+Para el abordaje del problema de las n reinas se diseñaron dos variantes de búsqueda informada sobre el mismo modelo CSP. En ambos casos el tablero se representa con una variable por columna, cuyos dominios son las filas disponibles, y se parte de un estado inicial en el que un subconjunto de columnas queda fijado consistentemente. Esta preasignación se genera de forma reproducible a partir de una semilla y reduce la profundidad efectiva del árbol de búsqueda sin comprometer la generalidad del algoritmo.
+
+La primera implementación (`tp5-csp/code/backtracking.py`) sigue un backtracking clásico con asignación incremental. Cada paso selecciona la siguiente columna sin heurísticas adicionales y prueba sus valores respetando las restricciones de filas y diagonales. Aunque el recorrido es determinista, el estado inicial puede incorporar columnas fijadas al azar (controladas por la semilla), lo que permite estudiar cómo cambian los tiempos de resolución cuando se parte de configuraciones parciales distintas.
+
+La segunda variante (`tp5-csp/code/forward.py`) incorpora heurísticas de ordenamiento y poda. Se aplica Minimum Remaining Values (MRV) para escoger la columna con menor dominio disponible y, dentro de ella, Least Constraining Value (LCV) para priorizar las filas que afectan a menos vecinos. Tras cada asignación se ejecuta forward checking: se clonan los dominios y se eliminan valores incompatibles en las columnas no asignadas; si algún dominio queda vacío, la rama se descarta inmediatamente. Esta combinación de filtrado y heurísticas reduce significativamente la cantidad de estados explorados frente al backtracking básico y permite comparar ambas aproximaciones bajo las mismas condiciones experimentales.
+
+### Análisis de resultados experimentales
+
+Se realizaron corridas repetidas para cada tamaño de tablero (N ∈ {4,8,10,12,15}) y algoritmo, registrando duración y cantidad de estados expandidos. Los resultados se resumen en boxplots separados por tamaño (`tp5-csp/images/boxplot_time_size_*.png` y `tp5-csp/images/boxplot_states_size_*.png`).
+
+### Tiempos de ejecución en los resultados
+
+En tableros pequeños como N=4, el backtracking puro suele ser ligeramente más veloz: el espacio de búsqueda es reducido y el overhead de las heurísticas del forward checking no se amortiza. A partir de N=8 la tendencia se invierte con claridad: los boxplots de duración exhiben colas mucho más largas para backtracking, mientras que forward checking mantiene medianas y dispersión acotadas. Para N=12 y N=15 el tiempo requerido por backtracking crece de forma casi explosiva, volviéndose poco práctico, mientras que forward checking continúa resolviendo en tiempos manejables.
+
+![Boxplots de tiempo por tamaño](images/boxplot_time_size_4.png)
+![Boxplots de tiempo por tamaño](images/boxplot_time_size_8.png)
+![Boxplots de tiempo por tamaño](images/boxplot_time_size_10.png)
+![Boxplots de tiempo por tamaño](images/boxplot_time_size_12.png)
+![Boxplots de tiempo por tamaño](images/boxplot_time_size_15.png)
+
+### Estados recorridos en los resultados
+
+![Boxplots de estados por tamaño](images/boxplot_states_size_4.png)
+![Boxplots de estados por tamaño](images/boxplot_states_size_8.png)
+![Boxplots de estados por tamaño](images/boxplot_states_size_10.png)
+![Boxplots de estados por tamaño](images/boxplot_states_size_12.png)
+![Boxplots de estados por tamaño](images/boxplot_states_size_15.png)
+
+Forward checking visita muchas menos configuraciones parciales: la propagación anticipada podando dominios evita expandir ramas inconsistentes, de modo que el árbol de búsqueda es considerablemente menos frondoso. En contraste, el backtracking debe recorrer la mayor parte del árbol antes de encontrar una asignación válida, lo que provoca un incremento drástico en estados explorados y, por ende, en tiempo de ejecución a medida que crece N.
 
 
 
