@@ -1,0 +1,15 @@
+2025-10-20 04:54:49,531 INFO    MainThread:11067 [wandb_setup.py:_flush():81] Current SDK version is 0.22.2
+2025-10-20 04:54:49,531 INFO    MainThread:11067 [wandb_setup.py:_flush():81] Configure stats pid to 11067
+2025-10-20 04:54:49,531 INFO    MainThread:11067 [wandb_setup.py:_flush():81] Loading settings from /home/renzo/.config/wandb/settings
+2025-10-20 04:54:49,531 INFO    MainThread:11067 [wandb_setup.py:_flush():81] Loading settings from /home/renzo/Escritorio/IA/ia-uncuyo-2025/tp6/wandb/settings
+2025-10-20 04:54:49,531 INFO    MainThread:11067 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2025-10-20 04:54:49,532 INFO    MainThread:11067 [wandb_init.py:setup_run_log_directory():705] Logging user logs to /home/renzo/Escritorio/IA/ia-uncuyo-2025/tp6/wandb/run-20251020_045449-scpf1sys/logs/debug.log
+2025-10-20 04:54:49,532 INFO    MainThread:11067 [wandb_init.py:setup_run_log_directory():706] Logging internal logs to /home/renzo/Escritorio/IA/ia-uncuyo-2025/tp6/wandb/run-20251020_045449-scpf1sys/logs/debug-internal.log
+2025-10-20 04:54:49,532 INFO    MainThread:11067 [wandb_init.py:init():832] calling init triggers
+2025-10-20 04:54:49,532 INFO    MainThread:11067 [wandb_init.py:init():837] wandb.init called with sweep_config: {}
+config: {'_wandb': {}}
+2025-10-20 04:54:49,532 INFO    MainThread:11067 [wandb_init.py:init():880] starting backend
+2025-10-20 04:54:49,749 INFO    MainThread:11067 [wandb_init.py:init():883] sending inform_init request
+2025-10-20 04:54:49,758 INFO    MainThread:11067 [wandb_init.py:init():891] backend started and connected
+2025-10-20 04:54:49,760 INFO    MainThread:11067 [wandb_init.py:init():961] updated telemetry
+2025-10-20 04:54:49,974 INFO    MainThread:11067 [wandb_init.py:init():985] communicating run to backend with 90.0 second timeout

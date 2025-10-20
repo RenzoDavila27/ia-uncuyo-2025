@@ -1,0 +1,15 @@
+{"time":"2025-10-20T04:54:49.763860145-03:00","level":"INFO","msg":"stream: starting","core version":"0.22.2"}
+{"time":"2025-10-20T04:54:50.507483663-03:00","level":"INFO","msg":"stream: created new stream","id":"scpf1sys"}
+{"time":"2025-10-20T04:54:50.5078185-03:00","level":"INFO","msg":"stream: started","id":"scpf1sys"}
+{"time":"2025-10-20T04:54:50.509447285-03:00","level":"INFO","msg":"sender: started","stream_id":"scpf1sys"}
+{"time":"2025-10-20T04:54:50.509447285-03:00","level":"INFO","msg":"handler: started","stream_id":"scpf1sys"}
+{"time":"2025-10-20T04:54:50.50945406-03:00","level":"INFO","msg":"writer: started","stream_id":"scpf1sys"}
+{"time":"2025-10-20T04:54:51.021369057-03:00","level":"ERROR","msg":"HTTP error","status":403,"method":"POST","url":"https://api.wandb.ai/graphql"}
+{"time":"2025-10-20T04:54:51.021694535-03:00","level":"ERROR","msg":"runupserter: failed to init run","error":"returned error 403: {\"data\":{\"upsertBucket\":null},\"errors\":[{\"message\":\"permission denied\",\"path\":[\"upsertBucket\"],\"extensions\":{\"code\":\"PERMISSION_ERROR\"}}]}"}
+{"time":"2025-10-20T04:54:51.053557607-03:00","level":"INFO","msg":"stream: closing","id":"scpf1sys"}
+{"time":"2025-10-20T04:54:51.054782129-03:00","level":"ERROR","msg":"sender: uploadConfigFile: runupserter: run not yet initialized"}
+{"time":"2025-10-20T04:54:51.105873664-03:00","level":"ERROR","msg":"runfiles: runupserter: run not yet initialized"}
+{"time":"2025-10-20T04:54:51.106293293-03:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-10-20T04:54:51.106360414-03:00","level":"INFO","msg":"handler: closed","stream_id":"scpf1sys"}
+{"time":"2025-10-20T04:54:51.106451142-03:00","level":"INFO","msg":"sender: closed","stream_id":"scpf1sys"}
+{"time":"2025-10-20T04:54:51.10648383-03:00","level":"INFO","msg":"stream: closed","id":"scpf1sys"}
