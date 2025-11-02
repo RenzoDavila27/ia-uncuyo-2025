@@ -1,7 +1,6 @@
 # Authors:  Ondrej Lukas - ondrej.lukas@aic.fel.cvut.cz
 #           Arti
 #           Sebastian Garcia. sebastian.garcia@agents.fel.cvut.cz
-import sys
 import numpy as np
 import random
 import pickle
@@ -52,9 +51,12 @@ class QAgent(BaseAgent):
                 self.q_values = data["q_table"]
                 self._str_to_id = data["state_mapping"]
             self._logger.info(f'Successfully loading file {filename}')
-        except Exception as e:
-            self._logger.info(f'Error loading file {filename}. {e}')
-            sys.exit(-1)
+        except FileNotFoundError as exc:
+            self._logger.info(f'Error loading file {filename}. {exc}')
+            raise
+        except Exception as exc:
+            self._logger.error(f'Unexpected error loading file {filename}. {exc}')
+            raise
 
     def get_state_id(self, state:GameState) -> int:
         # Here the state has to be ordered, so different orders are not taken as two different states.
@@ -134,14 +136,20 @@ class QAgent(BaseAgent):
             action = random.choice(list(actions))
         else:
             # Exploitation: choose action with highest Q-value
+            if not actions:
+                raise ValueError("No valid actions available for current state.")
+
+            action_values = []
             max_q = float('-inf')
-            best_action = None
             for action_candidate in actions:
                 q_value = self.q_values.get((state_id, action_candidate), 0)
+                action_values.append((action_candidate, q_value))
                 if q_value > max_q:
                     max_q = q_value
-                    best_action = action_candidate
-            action = best_action
+
+            # Break ties randomly so testing mode does not get stuck on a single action
+            best_actions = [act for act, q_val in action_values if q_val == max_q]
+            action = random.choice(best_actions)
 
         # Initialize Q-value if needed
         if (state_id, action) not in self.q_values:
@@ -242,7 +250,7 @@ class QAgent(BaseAgent):
         if not testing:
             self.current_epsilon = self.update_epsilon_with_decay(episode_num)
         # Reset the episode
-        _ = self.request_game_reset(randomize_topology=self._randomize_topology)
+        _ = self.request_game_reset()
         # This will be the last observation played before the reset
         return observation, num_steps
 
@@ -260,6 +268,7 @@ if __name__ == '__main__':
     parser.add_argument("--alpha", help="Sets alpha for learning rate during training.", default=0.1, type=float)
     parser.add_argument("--logdir", help="Folder to store logs", default=path.join(path.dirname(path.abspath(__file__)), "logs"))
     parser.add_argument("--previous_model", help="Load the previous model. If training, it will start from here. If testing, will use to test.", type=str)
+    parser.add_argument("--model_path", help="Path where the Q-table will be stored and reloaded on future runs.", type=str)
     parser.add_argument("--testing", help="Test the agent. No train.", default=False, type=bool)
     parser.add_argument("--experiment_id", help="Id of the experiment to record into Weights & Biases.", default='', type=str)
     parser.add_argument("--store_actions", help="Store actions in the log file q_agents_actions.log.", default=False, type=bool)
@@ -290,16 +299,48 @@ if __name__ == '__main__':
     # Early stop flag
     early_stop = False
 
-    # If there is a previous model passed. Always use it for both training and testing.
+    # Determine where to persist the Q-table
+    if args.model_path:
+        model_path = path.abspath(args.model_path)
+    else:
+        default_filename = f'q_agent_marl.experiment{args.experiment_id}.pickle'
+        model_path = path.abspath(default_filename)
+
+    load_candidates = []
     if args.previous_model:
-        # Load table
-        agent._logger.info(f'Loading the previous model in file {args.previous_model}')
-        try:
-            agent.load_q_table(args.previous_model)
-        except FileNotFoundError:
-            message = f'Problem loading the file: {args.previous_model}'
-            agent._logger.info(message)
-            print(message)
+        load_candidates.append(path.abspath(args.previous_model))
+    else:
+        load_candidates.append(model_path)
+        if not args.model_path:
+            legacy_default = path.abspath("q_agent_marl.pickle")
+            if legacy_default not in load_candidates:
+                load_candidates.append(legacy_default)
+
+    loaded_model_path = None
+    for candidate in load_candidates:
+        if path.exists(candidate):
+            agent._logger.info(f'Loading the previous model in file {candidate}')
+            try:
+                agent.load_q_table(candidate)
+                loaded_model_path = candidate
+                break
+            except Exception as exc:
+                agent._logger.warning(f"Failed to load Q-table from {candidate}: {exc}")
+
+    if args.previous_model and loaded_model_path is None:
+        message = f'Problem loading the file: {args.previous_model}'
+        agent._logger.info(message)
+        print(message)
+    elif loaded_model_path:
+        agent._logger.info(f'Continuing with Q-table loaded from {loaded_model_path}')
+    else:
+        agent._logger.info('No existing Q-table found; starting from an empty table.')
+
+    active_model_path = model_path
+    if not args.model_path and loaded_model_path:
+        active_model_path = loaded_model_path
+
+    agent._logger.info(f'Q-table will be stored at {active_model_path}')
 
 
     if not args.testing:
@@ -523,16 +564,16 @@ if __name__ == '__main__':
 
                                 if test_info and test_info['end_reason'] == AgentStatus.Fail:
                                     test_detected +=1
-                                    test_num_detected_steps += [num_steps]
-                                    test_num_detected_returns += [reward]
+                                    test_num_detected_steps += [test_num_steps]
+                                    test_num_detected_returns += [test_reward]
                                 elif test_info and test_info['end_reason'] == AgentStatus.Success:
                                     test_wins += 1
-                                    test_num_win_steps += [num_steps]
-                                    test_num_win_returns += [reward]
+                                    test_num_win_steps += [test_num_steps]
+                                    test_num_win_returns += [test_reward]
                                 elif test_info and test_info['end_reason'] == AgentStatus.TimeoutReached:
                                     test_max_steps += 1
-                                    test_num_max_steps_steps += [num_steps]
-                                    test_num_max_steps_returns += [reward]
+                                    test_num_max_steps_steps += [test_num_steps]
+                                    test_num_max_steps_returns += [test_reward]
 
                                 agent._logger.error(f"\tTesting episode {test_episode}: Steps={test_num_steps}. Reward {test_reward}. States in Q_table = {len(agent.q_values)}")
 
@@ -554,6 +595,7 @@ if __name__ == '__main__':
 
                                 # store model. Use episode (training counter) and not test_episode (test counter)
                                 if episode % args.store_models_every == 0 and episode != 0:
+                                    agent.store_q_table(active_model_path)
                                     agent.store_q_table(f'/data/AIDojo/Models/q_agent_marl.experiment{args.experiment_id}-episodes-{episode}.pickle')
 
                             text = f'''Tested for {test_episode} episodes after {episode} training episode.
@@ -621,8 +663,8 @@ if __name__ == '__main__':
         # Store the q-table
         # Just in case...
         if not args.testing:
-            agent.store_q_table(f'q_agent_marl.experiment{args.experiment_id}.pickle')
+            agent.store_q_table(active_model_path)
     finally:
         # Store the q-table
         if not args.testing:
-            agent.store_q_table(f'q_agent_marl.experiment{args.experiment_id}.pickle')
+            agent.store_q_table(active_model_path)

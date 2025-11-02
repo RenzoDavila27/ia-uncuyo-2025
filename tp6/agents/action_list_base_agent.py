@@ -3,8 +3,8 @@ import numpy as np
 import json
 from os import path
 from AIDojoCoordinator.game_components import Action, Observation, GameState
-from NetSecGameAgents.agents.base_agent import BaseAgent
-from NetSecGameAgents.agents.agent_utils import generate_valid_actions
+from agents.base_agent import BaseAgent
+from agents.agent_utils import generate_valid_actions
 
 
 class ActionListAgent(BaseAgent):

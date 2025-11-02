@@ -85,6 +85,8 @@ Run the agent with:
 python3 -m agents.attackers.q_learning.q_agent --episodes 1000
 ```
 
+By default the run reuses and updates the last saved Q-table. The model is stored in `q_agent_marl.experiment<experiment_id>.pickle` (or `q_agent_marl.pickle` if no experiment id is provided) in your current working directory and automatically reloaded on the next launch. You can override the location with `--model_path /path/to/q_table.pickle`.
+
 ### Important Command-Line Arguments
 
 - `--host`: Game server host (default: 127.0.0.1)
@@ -95,6 +97,8 @@ python3 -m agents.attackers.q_learning.q_agent --episodes 1000
 - `--epsilon_start`: Starting exploration rate (default: 0.9)
 - `--epsilon_end`: Final exploration rate (default: 0.1)
 - `--testing`: Set to True to test a trained model without learning
+- `--model_path`: Absolute or relative path where the Q-table will be stored and reloaded
+- `--previous_model`: Legacy option to load a specific Q-table file and continue training from it
 
 ## Testing Your Implementation
 
