@@ -22,21 +22,21 @@ En este escenario, un metodo de aprendizaje de maquina inflexible sera el mas ad
 **Se recopila un conjunto de datos sobre las 500 empresas más importantes de Estados Unidos. Para cada una de las empresas se registran las ganancias, el número de empleados, la industria y el salario del director ejecutivo. Se tiene interés en comprender qué factores afectan el salario de los directores ejecutivos.**
 
 * N = 500. "Se recopila un ***conjunto de datos sobre las 500 empresas*** más importantes de Estados Unidos."
-* P = 4. "Para cada una de las empresas se registran las ***ganancias***, el ***número de empleados***, la ***industria*** y el ***salario del director ejecutivo***."
+* P = 3. "Para cada una de las empresas se registran las ***ganancias***, el ***número de empleados***, la ***industria*** y el salario del director ejecutivo."
 * Problema de regresion. "Se tiene interés en comprender qué factores afectan ***el salario*** de los directores ejecutivos."
 * Se busca inferir. "Se ***tiene interés en comprender*** qué factores afectan el salario de los directores ejecutivos."
 
 **Se está considerando lanzar un nuevo producto y se desea saber si será un éxito o un fracaso. Se recolectan datos de 20 productos similares que fueron lanzados previamente. Para cada producto se ha registrado si fue un éxito o un fracaso, el precio cobrado por el producto, el presupuesto de marketing, el precio de la competencia, y otras diez variables**
 
 * N = 20. "Se ***recolectan datos de 20 productos*** similares que fueron lanzados previamente"
-* P = 14. "Para cada producto se ha registrado si fue un ***éxito o un fracaso***, el ***precio cobrado por el producto***, el ***presupuesto de marketing***, el ***precio de la competencia***, y ***otras diez variables***"
+* P = 13. "Para cada producto se ha registrado si fue un éxito o un fracaso, el ***precio cobrado por el producto***, el ***presupuesto de marketing***, el ***precio de la competencia***, y ***otras diez variables***"
 * Problema de clasificacion. "Se está considerando lanzar un nuevo producto y se desea saber si será un ***éxito o un fracaso***."
 * Se busca predecir. "Se está considerando lanzar un nuevo producto y ***se desea saber si será*** un éxito o un fracaso."
 
 **Se tiene interes en predecir el % de cambio en el tipo de cambio USD/Euro en relación a los cambios semanales en los mercados de valores mundiales. Para eso se recolectan datos semanalmente durante todo el 2021. Para cada semana se registran el % de cambio de USD/Euro, el % de cambio en el mercado estadounidense, el % de cambio en el mercado británico, y el % de cambio en el mercado alemán.**
 
 * N = 365 / 7 ≈ 52. "Para eso ***se recolectan datos semanalmente durante todo el 2021***."
-* P = 4. "Para cada semana se registran el ***% de cambio de USD/Euro***, el ***% de cambio en el mercado estadounidense***, el ***% de cambio en el mercado británico***, y el ***% de cambio en el mercado alemán***."
+* P = 3. "Para cada semana se registran el % de cambio de USD/Euro, el ***% de cambio en el mercado estadounidense***, el ***% de cambio en el mercado británico***, y el ***% de cambio en el mercado alemán***."
 * Problema de regresion. "Se tiene interes en predecir ***el % de cambio en el tipo de cambio USD/Euro en relación a los cambios semanales en los mercados de valores mundiales***"
 * Se busca predecir. "***Se tiene interes en predecir*** el % de cambio en el tipo de cambio USD/Euro en relación a los cambios semanales en los mercados de valores mundiales"
 
@@ -87,7 +87,7 @@ En este escenario, un metodo de aprendizaje de maquina inflexible sera el mas ad
 Distancia = sqrt((x-a)²+(y-b)²+(z-c)²)
 
 * Obs 1: sqrt((0)²+(3)²+(0)²) = 3
-* Obs 2: sqrt((2)²+(0)²+(0)²) = 4
+* Obs 2: sqrt((2)²+(0)²+(0)²) = 2
 * Obs 3: sqrt((0)²+(1)²+(3)²) ≈ 3.16228
 * Obs 4: sqrt((0)²+(1)²+(2)²) ≈ 2.23607
 * Obs 5: sqrt((-1)²+(0)²+(1)²) ≈ 1.41421
@@ -101,9 +101,9 @@ El valor $Y$ para $X_1 = X_2 = X_3 = 0$ predecido por el modelo es **Verde**
 
 #### Cuál es la predicción con K = 3? Justifique.
 
-Una vez que tenemos K = 3, buscamos los K vecinos mas cercanos a nuestro valor a predecir, en este caso la Observacion 5, Observacion 6 y Observacion 4 con una distancia de 1.41421, 1.73205 y 2.23607 respectivamente. Luego se seleccionara de todos los vecinos elegidos, el valor Y mas repetido, en este caso tenemos los valores Verde (Obs 4 y Obs 5) y Rojo (Obs 6), por lo que el valor Y sera el valor de la Obs 4 y 5.
+Una vez que tenemos K = 3, buscamos los K vecinos mas cercanos a nuestro valor a predecir, en este caso la Observacion 5, Observacion 6 y Observacion 2 con una distancia de 1.41421, 1.73205 y 2 respectivamente. Luego se seleccionara de todos los vecinos elegidos, el valor Y mas repetido, en este caso tenemos los valores Verde (Obs 5) y Rojo (Obs 2 y Obs 6), por lo que el valor Y sera el valor de la Obs 2 y Obs 6.
 
-El valor $Y$ para $X_1 = X_2 = X_3 = 0$ predecido por el modelo es **Verde**
+El valor $Y$ para $X_1 = X_2 = X_3 = 0$ predecido por el modelo es **Rojo**
 
 #### Si el límite de decisión de Bayes en este problema es altamente no lineal, ¿se espera que el mejor valor para K sea grande o pequeño? ¿Por qué?
 
