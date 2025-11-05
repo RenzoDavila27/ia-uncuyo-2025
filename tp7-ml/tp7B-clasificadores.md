@@ -23,7 +23,7 @@ Aqui se puede ver como la mayoria de metricas se balancean, por la naturaleza de
 
 
 
-### Bigger class clasifier
+### Bigger class classifier
 
 Se realizo un clasificador que asigna el valor mas repetido, el cual arrojo los siguientes resultados:
 
