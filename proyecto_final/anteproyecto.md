@@ -6,21 +6,15 @@
 
 ### Descripcion:
 
-#### ¿Qué es el Truco?
-* Es el juego de naipes más popular de Argentina, jugado con baraja española.
-* Es un juego de información incompleta: no conocemos las cartas del oponente.
-* Combina el valor de las cartas con una compleja psicología de engaño y un sistema de apuestas secuenciales (Envido, Truco).
-* El objetivo no es solo tener las mejores cartas, sino ganar la mayor cantidad de puntos convenciendo al oponente de que las tenemos (o retirándonos a tiempo).
+#### Descripcion del Truco Argenitno
+* El truco argentino, considerado el juego de naipes más popular de Argentina y disputado con baraja española, es un claro ejemplo de un juego de información incompleta, ya que cada jugador desconoce por completo las cartas de sus oponentes. Su dinámica combina el valor de las cartas con una compleja psicología del engaño, articulada a través de un sistema de apuestas secuenciales como el "Envido" y el "Truco". Por esta razón, el objetivo final no es simplemente tener la mejor mano, sino ganar la mayor cantidad de puntos posibles, ya sea convenciendo al oponente de que se posee una jugada superior (incluso si no es cierto) o sabiendo cuándo retirarse a tiempo para minimizar las pérdidas.
 
 #### El Problema para la IA
-* ¿Por qué es difícil? A diferencia del ajedrez, no existe una "mejor jugada" evidente.
-* Decisiones bajo incertidumbre: El agente debe actuar sin saber la mano del rival.
-* La trampa de las "reglas": Un bot programado con reglas fijas (ej. "siempre cantar envido con 30") es predecible y fácil de derrotar.
-* La mentira: La estrategia óptima debe incluir el engaño, algo que no se puede programar con un simple if-then-else.
+Desarrollar una inteligencia artificial para el truco es más complejo que para juegos de información perfecta como el ajedrez, donde siempre existe una "mejor jugada" evidente. El principal desafío radica en la toma de decisiones bajo incertidumbre, ya que el agente debe actuar constantemente sin conocer la mano del rival. Esto invalida las soluciones simples: un bot programado con reglas fijas (como "siempre cantar envido con 30 puntos") cae en la trampa de ser completamente predecible y, por ende, fácil de derrotar por un jugador experimentado. La dificultad fundamental es modelar la mentira; la estrategia óptima en el truco debe incluir el engaño y la capacidad de mentir, comportamientos que no pueden reducirse a una simple lógica de if-then-else, sino que requieren una comprensión contextual y adaptativa del oponente.
 
 #### La Solución: Aprendizaje por Refuerzo (RL)
 Usaremos Aprendizaje por Refuerzo (RL), la misma familia de algoritmos que domina el Go, el ajedrez y el póker.
-Haremos algunos algoritmos para comparar los resultados. Como baseline tomares un algoritmo aleatorio, y luego implementaremos un algoritmo de Q-Learning, el cual a pesar de no ser el mas adecuado a este tipo de problemas, sentimos que puede dar mejores resultados. Finalmente nos gustaria investigar sobre algun algoritmo mas orientado a este tipo de problemas, como Policy Gradient (tambien RL), o posiblemente el mejor para la situacion planteada: CRM (Counterfactual Regret Minimization).
+Haremos algunos algoritmos para comparar los resultados. Como baseline tomares un algoritmo con reglas bien definidas, y luego implementaremos un algortimo aleatorio para ver como se comporta. Luego construiremos un agente de Q-Learning, el cual a pesar de no ser el mas adecuado a este tipo de problemas, sentimos que puede dar mejores resultados. Finalmente nos gustaria investigar sobre algun algoritmo mas orientado a este tipo de problemas, como Policy Gradient (tambien RL), o posiblemente el mejor para la situacion planteada: CRM (Counterfactual Regret Minimization).
 El entrenamiento de estos algoritmos se basara en el juego de partidas consigo mismo. Es decir jugaran dos agentes de Q-Learning una partida
 
 #### Metricas a tener en cuenta
@@ -37,10 +31,10 @@ El Aprendizaje por Refuerzo (RL) es ideal para el Truco, aunque la elección del
 
 * Investigar y leer sobre los algoritmos a implementar (1 dia)
 * Investigar sobre entornos existentes para poder crear el propio (1 dia)
-* Creacion del entorno personalizado (3 dias)
-* Implementar el algoritmo random y obtener sus resultados (1 dia)
+* Creacion del entorno personalizado (4 dias)
+* Implementar el algoritmo random y de reglas bien definidas; y obtener sus resultados (1 dia)
 * Implementar el algoritmo por Q-Learning, entrenamiento y obtener sus resultados (3 dias)
-* Implementar algoritmo de Policy Gradient, entrenamiento y obtener sus resultados (4 dias)
+* Implementar algoritmo de Policy Gradient, entrenamiento y obtener sus resultados (3 dias)
 * Investigar sobre Counterfactual Regret Minimization y como podria aplicarse a este problema (2 dias)
 * Realizar reportes y graficos con los resultados obtenidos (2 dias)
 * Primeras reuniones y muestra de los resultados. Posibles primeras correcciones (1 dia)
