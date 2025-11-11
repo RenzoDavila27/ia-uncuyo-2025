@@ -42,6 +42,8 @@ El Aprendizaje por Refuerzo (RL) es ideal para el Truco, aunque la elección del
 * Elaboracion del informe (7 dias)
 * Elaboracion y preparación de la presentación (3 dias)
 
+![image](images/gantt.png)
+
 ### Referencias:
 
 [An Introduction to Counterfactual Regret Minimization](https://www.ma.imperial.ac.uk/~dturaev/neller-lanctot.pdf)
